@@ -82,6 +82,14 @@ Route::group([
             Route::post('/update', 'SubjectsAllocationController@update')->name('subjects-allocation_update');
         });
 
+        Route::group([
+            'prefix' => "class-teachers",
+        ], function(){
+            Route::post('/assign', 'ClassTeachersController@assign')->name('class-teacher_assign');
+            Route::post('/update', 'ClassTeachersController@update')->name('class-teacher_update');
+            Route::post('/delete', 'ClassTeachersController@delete')->name('class-teacher_delete');
+        });
+
     });
 
 });
@@ -98,5 +106,7 @@ Route::group([
 
     Route::get('/register', 'StudentRegisterController@index')->name('register');
     Route::post('/search-register', 'StudentRegisterController@searchRegister')->name('search_register');
+    Route::get('/register-today', 'StudentRegisterController@registerToday')->name('register_today');
+    Route::post('/update-register-today', 'StudentRegisterController@updateRegisterToday')->name('register_today_update');
 
 });

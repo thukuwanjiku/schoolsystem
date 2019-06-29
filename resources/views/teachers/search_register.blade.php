@@ -32,7 +32,9 @@
 
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit">View Register</button>
-                        <a href="javascript:void" class="btn btn-lime">Today's Register</a>
+                        @if($isClassTeacher)
+                        <a href="{{ route('register_today') }}" class="btn btn-lime">Today's Register</a>
+                        @endif
                     </div>
                 </form>
 

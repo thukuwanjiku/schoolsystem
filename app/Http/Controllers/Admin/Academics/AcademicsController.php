@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Academics;
 
+use App\DB\Academics\ClassTeacher;
 use App\DB\Academics\Exam;
 use App\DB\Academics\Subject;
 use App\DB\Academics\SubjectsAllocation;
@@ -22,13 +23,15 @@ class AcademicsController extends Controller
         $teachers = User::where('role_id', $teacherRole->id)->get();
         $classes = StudentGroup::where('is_completed', false)->get();
         $subject_allocations = SubjectsAllocation::all();
+        $class_teachers = ClassTeacher::all()->filter(function($classTeacher){ return !$classTeacher->studentClass->is_completed; });
 
         return view('admin.academics')->with([
             'subjects' => $subjects,
             'exams' => $exams,
             'teachers' => $teachers,
             'classes' => $classes,
-            'subject_allocations' => $subject_allocations
+            'subject_allocations' => $subject_allocations,
+            'class_teachers' => $class_teachers,
         ]);
     }
 }

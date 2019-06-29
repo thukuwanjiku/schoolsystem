@@ -10,6 +10,7 @@
             <li class="active"><a data-toggle="tab" href="#subjects">Subjects</a></li>
             <li><a data-toggle="tab" href="#exams">Exams</a></li>
             <li><a data-toggle="tab" href="#subjects-allocation">Subjects Allocation</a></li>
+            <li><a data-toggle="tab" href="#class-teachers">Class Teachers</a></li>
         </ul>
 
         <div class="tab-content">
@@ -132,6 +133,43 @@
                     @else
                         <tr>
                             <td colspan="5" style="text-align:center">No subject allocations</td>
+                        </tr>
+                    @endif
+                </table>
+            </div>
+
+            <div id="class-teachers" class="tab-pane fade in">
+                <div class="col-sm-12" style="padding-bottom: 20px;">
+                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#assignClassTeacherModal">Assign Class Teacher</button>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Teacher</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                    </thead>
+                    @if(sizeof($class_teachers))
+                        @foreach($class_teachers as $class_teacher)
+                            <tr>
+                                <td>{{ ucwords($class_teacher->studentClass->name) }}</td>
+                                <td>{{ ucwords($class_teacher->teacher->name) }}</td>
+                                <td class="text-center">
+                                    <div class="dropdown">
+                                        <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Actions
+                                            <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#" class="btn-update-class-teacher" data-class_teacher="{{ json_encode($class_teacher) }}">Update</a></li>
+                                            <li><a href="#" class="btn-delete-class-teacher" data-class_teacher="{{ json_encode($class_teacher) }}">Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td colspan="5" style="text-align:center">No class teachers</td>
                         </tr>
                     @endif
                 </table>
@@ -462,6 +500,128 @@
             </div>
         </div>
 
+        <!-- ASSIGN CLASS TEACHER MODAL -->
+        <div id="assignClassTeacherModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Assign Class Teacher</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('class-teacher_assign') }}" method="POST" class="form-horizontal form-bordered" enctype="multipart/form-data"
+                        >
+
+                            @csrf
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Select Class</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="class_id">
+                                        <option selected disabled>Select</option>
+                                        @foreach($classes as $class)
+                                            <option value="{!! $class->id !!}">{!! ucwords($class->name) !!}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Select Teacher</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="teacher_id">
+                                        <option selected disabled>Select</option>
+                                        @foreach($teachers as $teacher)
+                                            <option value="{!! $teacher->id !!}">{!! ucwords($teacher->name) !!}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" type="submit">Assign Class Teacher</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- UPDATE CLASS TEACHER MODAL -->
+        <div id="updateClassTeacherModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Update Class Teacher</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('class-teacher_update') }}" method="POST" class="form-horizontal form-bordered" enctype="multipart/form-data"
+                        >
+
+                            @csrf
+                            <input type="hidden" name="record_id" id="update-class-teacher-id">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Select Class</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="class_id" id="update-class-teacher-class-id">
+                                        @foreach($classes as $class)
+                                            <option value="{!! $class->id !!}">{!! ucwords($class->name) !!}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Select Teacher</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="teacher_id" id="update-class-teacher-teacher-id">
+                                        @foreach($teachers as $teacher)
+                                            <option value="{!! $teacher->id !!}">{!! ucwords($teacher->name) !!}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" type="submit">Update Record</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Delete Class Teacher Modal -->
+        <div id="deleteClassTeacherModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Delete Class Teacher</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('class-teacher_delete') }}" method="POST" class="form-horizontal form-bordered" enctype="multipart/form-data"
+                        >
+
+                            @csrf
+                            <div class="form-group">
+                                <input type="hidden" name="record_id" id="delete-class-teacher-id">
+                                <p style="padding:20px;">Are your sure you want to delete this class teacher entry?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button class="btn btn-danger" type="submit">Delete</button></div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
 @endsection
@@ -528,6 +688,22 @@
 
                 $("#updateSubjectAllocationModal").modal("show");
             });
+
+            $(".btn-update-class-teacher").on('click', function () {
+                var class_teacher = JSON.parse(this.getAttribute('data-class_teacher'));
+
+                $("#update-class-teacher-class-id").val(class_teacher.class_id);
+                $("#update-class-teacher-id").val(class_teacher.id);
+                $("#update-class-teacher-teacher-id").val(class_teacher.teacher_id);
+                $("#updateClassTeacherModal").modal("show");
+            })
+
+            $(".btn-delete-class-teacher").on('click', function () {
+                var class_teacher = JSON.parse(this.getAttribute('data-class_teacher'));
+
+                $("#delete-class-teacher-id").val(class_teacher.id);
+                $("#deleteClassTeacherModal").modal("show");
+            })
 
         });
     </script>
