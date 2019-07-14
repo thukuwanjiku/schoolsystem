@@ -112,7 +112,7 @@
                         <th class="text-center">Action</th>
                     </tr>
                     </thead>
-                    @if(sizeof($exams))
+                    @if(sizeof($subject_allocations))
                         @foreach($subject_allocations as $subject_allocation)
                             <tr>
                                 <td>{{ ucwords($subject_allocation->teacher->name) }}</td>

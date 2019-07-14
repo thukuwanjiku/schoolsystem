@@ -96,6 +96,9 @@ input:checked + .slider:before {
 .nav>li>a {
     color: white;
 }
+.skin-blue .sidebar-menu>li>a.active {
+    background: #2c4b5a;
+}
 
 /*CHECKBOX STYLING*/
 @keyframes check {0% {height: 0;width: 0;}

@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-class UsersController extends Controller
+class StaffController extends Controller
 {
     public function index()
     {
@@ -47,7 +47,7 @@ class UsersController extends Controller
             'password' => Hash::make($request['password'])
         ]);
 
-        session()->flash("success", "Successfully added user");
+        session()->flash("success", "Successfully added staff");
 
         return redirect()->route('users');
     }
@@ -70,7 +70,7 @@ class UsersController extends Controller
 
         //find the user
         if(!$user = User::find($request['user_id'])){
-            return back()->withErrors("User not found");
+            return back()->withErrors("Staff member not found");
         }
 
         //update details
@@ -80,7 +80,7 @@ class UsersController extends Controller
         $user->password = !empty($request['password']) ? $request['password'] : $user->password;
         $user->save();
 
-        session()->flash("success", "Successfully updated user");
+        session()->flash("success", "Successfully updated staff");
 
         return redirect()->route('users');
     }
@@ -93,13 +93,13 @@ class UsersController extends Controller
 
         //find the user
         if(!$user = User::find($request['user_id'])){
-            return back()->withErrors("User not found");
+            return back()->withErrors("Staff member not found");
         }
 
         //delete the user
         $user->delete();
 
-        session()->flash("success", "Successfully deleted user");
+        session()->flash("success", "Successfully deleted staff");
 
         return redirect()->route('users');
     }

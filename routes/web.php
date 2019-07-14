@@ -46,10 +46,10 @@ Route::group([
         'namespace' => 'Users',
         'prefix' => 'users'
     ], function (){
-        Route::get('/', 'UsersController@index')->name('users');
-        Route::post('/add', 'UsersController@add')->name('users_add');
-        Route::post('/update', 'UsersController@update')->name('users_update');
-        Route::post('/delete', 'UsersController@delete')->name('users_delete');
+        Route::get('/', 'StaffController@index')->name('users');
+        Route::post('/add', 'StaffController@add')->name('users_add');
+        Route::post('/update', 'StaffController@update')->name('users_update');
+        Route::post('/delete', 'StaffController@delete')->name('users_delete');
     });
 
     Route::group([
@@ -92,6 +92,13 @@ Route::group([
 
     });
 
+    Route::group([
+        'prefix' => 'chat',
+        'namespace' => 'Chat'
+    ], function(){
+        Route::get('/', 'AdminChatController@index')->name('admin_chat');
+    });
+
 });
 
 Route::group([
@@ -108,5 +115,15 @@ Route::group([
     Route::post('/search-register', 'StudentRegisterController@searchRegister')->name('search_register');
     Route::get('/register-today', 'StudentRegisterController@registerToday')->name('register_today');
     Route::post('/update-register-today', 'StudentRegisterController@updateRegisterToday')->name('register_today_update');
+
+});
+
+Route::group([
+    'prefix' => 'medical',
+    'namespace' => 'Medical',
+    'middleware' => ['auth']
+], function(){
+
+    Route::get('/', 'MedicalController@index')->name('medical');
 
 });

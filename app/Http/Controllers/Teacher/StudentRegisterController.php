@@ -42,7 +42,7 @@ class StudentRegisterController extends Controller
         $students = Student::where('group_id', $request['class_id'])->get();
         $register = StudentsRegister::where([
             'class_id' => $request['class_id'],
-            'created_at' => Carbon::parse($request['register_date'])
+            'register_date' => Carbon::parse($request['register_date'])->toDateString()
         ])->get();
 
         $students_register = $students->map(function($student)use($register){
@@ -59,6 +59,7 @@ class StudentRegisterController extends Controller
 
            return $studentArray;
         });
+
 
         return view('teachers.register')->with([
             'students' => $students_register,

@@ -45,11 +45,16 @@ class ExamMarksController extends Controller
 
         $exam = Exam::find($request['exam_id']);
         $subject = Subject::find($request['subject_id']);
+        $enteredMarks = ExamMark::where([
+            'exam_id' => $request['exam_id'],
+            'subject_id' => $request['subject_id']
+        ])->get();
 
         return view('teachers.marks_entry')->with([
             'exam' => $exam,
             'subject' => $subject,
-            'students' => $students
+            'students' => $students,
+            'savedMarks' => $enteredMarks
         ]);
     }
 

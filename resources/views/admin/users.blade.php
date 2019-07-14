@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Users')
+@section('title', 'Staff')
 
 @section('extra_css')
 
@@ -12,7 +12,7 @@
 
         <div class="col-sm-12 table-content">
             <div class="col-sm-12" style="padding-bottom: 20px;">
-                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addUserModal">Add User</button>
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addUserModal">Add Staff</button>
             </div>
             <table class="table table-striped custab">
                 <thead>
@@ -46,7 +46,7 @@
                 @endforeach
                 @else
                 <tr>
-                    <td colspan="5" style="text-align:center">No users found</td>
+                    <td colspan="5" style="text-align:center">No staff found</td>
                 </tr>
                 @endif
             </table>
@@ -61,7 +61,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add User</h4>
+                    <h4 class="modal-title">Add Staff</h4>
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('users_add') }}" method="POST" class="form-add-user form-horizontal form-bordered" enctype="multipart/form-data"
@@ -114,7 +114,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Update User</h4>
+                    <h4 class="modal-title">Update Staff Member</h4>
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('users_update') }}" method="POST" class="form-horizontal form-bordered" enctype="multipart/form-data"
@@ -168,7 +168,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Delete User</h4>
+                    <h4 class="modal-title">Delete Staff Member</h4>
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('users_delete') }}" method="POST" class="form-horizontal form-bordered" enctype="multipart/form-data"
@@ -177,7 +177,7 @@
                         @csrf
                         <div class="form-group">
                             <input type="hidden" name="user_id" id="delete-user-id">
-                            <p style="padding:20px;">Are your sure you want to delete this user?</p>
+                            <p style="padding:20px;">Are your sure you want to delete this Staff Member?</p>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-danger" type="submit">Delete</button></div>

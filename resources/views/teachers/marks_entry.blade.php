@@ -29,6 +29,10 @@
                     </tr>
                     </thead>
                     @foreach($students as $student)
+                        @php
+                            $marksEntry = $savedMarks->where('student_id', $student->id)->first();
+                        @endphp
+
                         <tr>
                             <td>
                                 {!! $student->name !!}
@@ -36,17 +40,19 @@
                             </td>
                             <td>
                                 <div class="col-sm-6">
-                                    <input class="form-control" type="number" name="marks[]" placeholder="Marks">
+                                    <input class="form-control" type="number" name="marks[]" placeholder="Marks"
+                                           value="{!! !is_null($marksEntry) ? $marksEntry->marks : '' !!}"
+                                    >
                                 </div>
                             </td>
                             <td>
                                 <div class="col-sm-6">
-                                    <input class="form-control" type="text" name="grades[]" placeholder="Grade">
+                                    <input class="form-control" type="text" name="grades[]" placeholder="Grade" value="{!! !is_null($marksEntry) ? $marksEntry->grade : '' !!}">
                                 </div>
                             </td>
                             <td>
                                 <div class="col-sm-6">
-                                    <input class="form-control" type="number" name="points[]" placeholder="Points">
+                                    <input class="form-control" type="number" name="points[]" placeholder="Points" value="{!! !is_null($marksEntry) ? $marksEntry->points : '' !!}">
                                 </div>
                             </td>
                         </tr>

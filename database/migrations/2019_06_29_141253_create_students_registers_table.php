@@ -17,7 +17,7 @@ class CreateStudentsRegistersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('class_id');
             $table->unsignedInteger('student_id');
-            $table->timestamp('register_date')->nullable();
+            $table->string('register_date')->nullable();
             $table->boolean('is_present')->default(false);
             $table->timestamps();
         });
