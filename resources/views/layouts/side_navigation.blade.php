@@ -77,16 +77,8 @@
             </li>
             @elseif(auth()->check() && auth()->user()->role->label === 'disciplinarian')
             <li>
-                <a href="{{ route('exam_marks') }}" class="{{ \Illuminate\Support\Facades\Route::currentRouteName() === 'exam_marks' ? 'active' : '' }}">
-                    <i class="fa fa-line-chart"></i> <span>Performance</span>
-                    <span class="pull-right-container">
-                          {{--<small class="label pull-right bg-green">new</small>--}}
-                    </span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('register') }}" class="{{ \Illuminate\Support\Facades\Route::currentRouteName() === 'register' ? 'active' : '' }}">
-                    <i class="fa fa-calendar-check-o"></i> <span>Register</span>
+                <a href="{{ route('discipline') }}" class="{{ \Illuminate\Support\Facades\Route::currentRouteName() === 'discipline' ? 'active' : '' }}">
+                    <i class="fa fa-id-card-o"></i> <span>Discipline cases</span>
                     <span class="pull-right-container">
                           {{--<small class="label pull-right bg-green">new</small>--}}
                     </span>
@@ -94,7 +86,7 @@
             </li>
             @elseif(auth()->check() && auth()->user()->role->label === 'medical')
             <li>
-                <a href="{{ route('exam_marks') }}" class="{{ \Illuminate\Support\Facades\Route::currentRouteName() === 'exam_marks' ? 'active' : '' }}">
+                <a href="{{ route('medical') }}" class="{{ \Illuminate\Support\Facades\Route::currentRouteName() === 'medical' ? 'active' : '' }}">
                     <i class="fa fa-user-md"></i> <span>Medical Report</span>
                     <span class="pull-right-container">
                           {{--<small class="label pull-right bg-green">new</small>--}}

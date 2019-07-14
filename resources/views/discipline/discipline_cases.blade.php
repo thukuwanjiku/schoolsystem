@@ -1,13 +1,13 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Medical Department')
+@section('title', 'Discipline Cases')
 
 @section('content')
 
     <div class="main-content">
 
         <div class="col-sm-12" style="padding: 20px;">
-            <a class="btn btn-primary" href="{{ route('new_medical') }}">New Medical Report</a>
+            <a class="btn btn-primary" href="{{ route('new_discipline_case') }}">New indiscipline case</a>
         </div>
 
         <div class="col-sm-12 table-responsive">
@@ -16,8 +16,8 @@
                 <tr>
                     <th>Date</th>
                     <th>Student</th>
-                    <th>Diagnosis</th>
-                    <th>Prescription</th>
+                    <th>Offense</th>
+                    <th>Punishment</th>
                 </tr>
                 </thead>
 
@@ -26,8 +26,8 @@
                     <tr>
                         <td>{{ \Carbon\Carbon::parse($report->created_at)->toDayDateTimeString() }}</td>
                         <td>{{ $report->student->name }}</td>
-                        <td>{!! $report->diagnosis !!}</td>
-                        <td>{!! $report->prescription !!}</td>
+                        <td>{!! $report->offense !!}</td>
+                        <td>{!! $report->punishment !!}</td>
                     </tr>
                 @endforeach
                 </tbody>

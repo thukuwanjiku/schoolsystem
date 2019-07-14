@@ -125,5 +125,19 @@ Route::group([
 ], function(){
 
     Route::get('/', 'MedicalController@index')->name('medical');
+    Route::get('/new-medical-report', 'MedicalController@newMedicalReport')->name('new_medical');
+    Route::post('/new-medical-report', 'MedicalController@saveMedicalReport')->name('save_new_medical');
+
+});
+
+Route::group([
+    'prefix' => 'discipline',
+    'namespace' => 'Discipline',
+    'middleware' => ['auth']
+], function(){
+
+    Route::get('/', 'DisciplineController@index')->name('discipline');
+    Route::get('/new-indiscipline-case', 'DisciplineController@newIndisciplineCase')->name('new_discipline_case');
+    Route::post('/new-indiscipline-case', 'DisciplineController@saveDisciplineCase')->name('save_new_discipline_case');
 
 });
