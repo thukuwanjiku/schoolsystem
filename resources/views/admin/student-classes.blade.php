@@ -45,7 +45,7 @@
                 @foreach($groups as $group)
                     <tr>
                         <td>{{ $group['id'] }}</td>
-                        <td>{{ $group['name'] }}</td>
+                        <td>{{ $group->is_completed ? $group['name'].' - Class of '.$group->year_completed : $group['name'] }}</td>
                         <td class="text-center">
                             <button
                                     data-id="{{ $group['id'] }}"

@@ -16,7 +16,7 @@ class StaffController extends Controller
         $users = User::latest()->get();
         $roles = Role::all();
 
-        return view('admin.users')->with([
+        return view('admin.staff')->with([
             'users' => $users,
             'roles' => $roles
         ]);

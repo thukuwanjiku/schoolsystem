@@ -44,7 +44,7 @@ class ExamsController extends Controller
             'exam_id' => "required",
             'exam_name' => [
                 'required',
-                Rule::unique('exams', 'label')
+                Rule::unique('exams', 'label')->ignore($request['exam_id'])
             ],
             'start_date' => 'required',
             'end_date' => 'required'

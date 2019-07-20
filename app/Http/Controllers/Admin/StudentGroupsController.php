@@ -11,16 +11,22 @@ class StudentGroupsController extends Controller
 {
     public function index(){
         //fetch all student groups from database
-        $groups = StudentGroup::all();
+        $groups = StudentGroup::latest()->get();
 
         //return a page displaying all the groups
-        return view('admin.student-groups')->with([
+        return view('admin.student-classes')->with([
             'groups' => $groups
         ]);
     }
 
     public function add(Request $request)
     {
+        $validation = $request->validate([
+            'group_name' => 'required',
+        ], [
+            'group_name.required' => "Please enter the class name",
+        ]);
+
         //create a new student group
         StudentGroup::create([
             'name' => $request['group_name'],
@@ -39,6 +45,13 @@ class StudentGroupsController extends Controller
 
     public function update(Request $request)
     {
+        $validation = $request->validate([
+            'group_id' => 'required',
+            'group_name' => 'required',
+        ], [
+            'group_name.required' => "Please enter the class name",
+        ]);
+
         //find the group with the id given
         if($group = StudentGroup::where('id', $request['group_id'])->first()){
             //there is such a group, update it

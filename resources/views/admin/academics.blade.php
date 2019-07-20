@@ -2,9 +2,13 @@
 
 @section('title', 'Academics')
 
+@section('extra_css')
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+@endsection
+
 @section('content')
 
-    <div class="main-content">
+    <div class="main-content" id="app">
 
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#subjects">Subjects</a></li>
@@ -291,13 +295,25 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Exam Start Date</label>
                                 <div class="col-sm-4">
-                                    <input name="start_date" placeholder="Exam Start Date" class="form-control date-input" data-language='en'>
+                                    <el-date-picker
+                                            name="start_date"
+                                            v-model="startDate"
+                                            type="date"
+                                            value-format="yyyy-MM-dd"
+                                            placeholder="Select Exam Start date">
+                                    </el-date-picker>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Exam Start Date</label>
                                 <div class="col-sm-4">
-                                    <input name="end_date" placeholder="Exam End Date" class="form-control date-input" data-language='en'>
+                                    <el-date-picker
+                                            name="end_date"
+                                            v-model="endDate"
+                                            type="date"
+                                            value-format="yyyy-MM-dd"
+                                            placeholder="Select Exam end date">
+                                    </el-date-picker>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -335,13 +351,25 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Exam Start Date</label>
                                 <div class="col-sm-4">
-                                    <input name="start_date" id="update-exam-start_date" placeholder="Exam Start Date" class="form-control date-input" data-language='en'>
+                                    <el-date-picker
+                                            name="start_date"
+                                            v-model="toUpdateExam.start_date"
+                                            type="date"
+                                            value-format="yyyy-MM-dd"
+                                            placeholder="Select Exam Start date">
+                                    </el-date-picker>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Exam Start Date</label>
                                 <div class="col-sm-4">
-                                    <input name="end_date" placeholder="Exam End Date" id="update-exam-end_date" class="form-control date-input" data-language='en'>
+                                    <el-date-picker
+                                            name="end_date"
+                                            v-model="toUpdateExam.end_date"
+                                            type="date"
+                                            value-format="yyyy-MM-dd"
+                                            placeholder="Select Exam end date">
+                                    </el-date-picker>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -627,12 +655,43 @@
 @endsection
 @section('extra_js')
 
+    <!-- import Vue before Element UI Library -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- import ELEMENT UI KIT -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="//unpkg.com/element-ui/lib/umd/locale/en.js"></script>
+
+    <script>
+        ELEMENT.locale(ELEMENT.lang.en);
+
+        new Vue({
+            el: '#app',
+            data: function() {
+                return {
+                    startDate:null,
+                    endDate:null,
+
+                    toUpdateExam:{},
+                }
+            },
+            mounted(){
+                var vm = this;
+                $(".btn-update-exam").on('click', function () {
+                    var exam = JSON.parse(this.getAttribute("data-exam"));
+                    vm.toUpdateExam = exam;
+
+
+                    $("#update-exam-id").val(exam.id);
+                    $("#update-exam-name").val(exam.label);
+
+                    $("#updateExamModal").modal("show");
+                });
+            },
+        })
+    </script>
+
     <script>
         $(document).ready(function(){
-            $('.date-input').datepicker({
-                language:"English",
-            });
-
             $("button[type='submit']").on('click', function () {
                 $(this).hide();
             });
@@ -651,17 +710,6 @@
 
                $("#delete-subject-id").val(subjectId);
                $("#deleteSubjectModal").modal("show");
-            });
-
-            $(".btn-update-exam").on('click', function () {
-                var exam = JSON.parse(this.getAttribute("data-exam"));
-
-                $("#update-exam-id").val(exam.id);
-                $("#update-exam-name").val(exam.label);
-                $("#update-exam-start_date").val(exam.start_date);
-                $("#update-exam-end_date").val(exam.end_date);
-
-                $("#updateExamModal").modal("show");
             });
 
             $(".btn-update-exam-status").on('click', function () {
@@ -696,7 +744,7 @@
                 $("#update-class-teacher-id").val(class_teacher.id);
                 $("#update-class-teacher-teacher-id").val(class_teacher.teacher_id);
                 $("#updateClassTeacherModal").modal("show");
-            })
+            });
 
             $(".btn-delete-class-teacher").on('click', function () {
                 var class_teacher = JSON.parse(this.getAttribute('data-class_teacher'));

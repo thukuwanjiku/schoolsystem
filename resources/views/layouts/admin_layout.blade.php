@@ -21,7 +21,6 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('css/all-skins.css') }}">
     <link rel="stylesheet" href="{{ asset('css/global.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/datepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jquery.growl.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style-responsive.min.css') }}">
