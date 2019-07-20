@@ -305,7 +305,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3">Exam Start Date</label>
+                                <label class="control-label col-sm-3">Exam End Date</label>
                                 <div class="col-sm-4">
                                     <el-date-picker
                                             name="end_date"

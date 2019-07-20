@@ -15,7 +15,7 @@ class ExamsController extends Controller
         $validation = $request->validate([
             'exam_name' => [
                 'required',
-                Rule::unique('exams', 'label')->ignore($request['exam_id'])
+                Rule::unique('exams', 'label')
             ],
             'start_date' => 'required',
             'end_date' => 'required'
