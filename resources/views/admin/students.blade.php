@@ -200,6 +200,11 @@
                                 <div class="col-sm-4">
                                     <input type="text" id="update-student-parent-phone" placeholder="Phone Number" name="parent_phone_number" class="form-control">
                                 </div>
+
+                                <label class="col-sm-2 control-label">Login Password</label>
+                                <div class="col-sm-4">
+                                    <input type="password" name="password" placeholder="Password" class="form-control">
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-success" type="submit">Update</button>

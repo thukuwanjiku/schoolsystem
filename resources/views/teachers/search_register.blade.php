@@ -26,7 +26,7 @@
 
                         <label class="col-sm-2 control-label">Select Date</label>
                         <div class="col-sm-4">
-                            <input name="register_date" placeholder="Exam Start Date" class="form-control date-input" data-language='en'>
+                            <input name="register_date" placeholder="Select Date" class="form-control date-input" data-language='en'>
                         </div>
                     </div>
 

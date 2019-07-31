@@ -129,7 +129,7 @@ class StudentRegisterController extends Controller
             }
         }
 
-        session()->flash("Successfully update class register");
+        session()->flash('success', "Successfully update class register");
         return redirect()->route('register');
     }
 }

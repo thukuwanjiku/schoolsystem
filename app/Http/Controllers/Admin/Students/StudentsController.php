@@ -7,6 +7,7 @@ use App\DB\Students\StudentGroup;
 use App\DB\Students\StudentParent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class StudentsController extends Controller
 {
@@ -50,7 +51,8 @@ class StudentsController extends Controller
             'student_id' => $student->id,
             'name' => $request['parent_name'],
             'email' => $request['parent_email'],
-            'phone_number' => $request['parent_phone_number']
+            'phone_number' => $request['parent_phone_number'],
+            'password' => Hash::make('admin')
         ]);
 
         session()->flash('success', 'Successfully added student');
@@ -73,6 +75,7 @@ class StudentsController extends Controller
         $student->parent->name = $request['parent_name'];
         $student->parent->email = $request['parent_email'];
         $student->parent->phone_number = $request['parent_phone_number'];
+        $student->parent->password = !empty($request['password']) ? Hash::make($request['password']) : $student->parent->password;
         $student->parent->save();
         $student->save();
 

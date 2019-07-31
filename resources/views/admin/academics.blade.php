@@ -39,7 +39,7 @@
                                             class='btn btn-info btn-xs btn-update-subject'>
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit</button>
-                                    <button data-subject-id="{!! $subject->id !!}" class="btn btn-danger btn-xs btn-delete-subject">
+                                    <button data-subject-id="{!! @$subject->id !!}" class="btn btn-danger btn-xs btn-delete-subject">
                                         <span class="glyphicon glyphicon-remove"></span>
                                         Del</button>
                                 </td>
@@ -71,9 +71,9 @@
                         @foreach($exams as $exam)
                             <tr>
                                 <td>{{ $exam['label'] }}</td>
-                                <td>{{ \Carbon\Carbon::parse($exam->start_date)->toFormattedDateString() }}</td>
-                                <td>{{ \Carbon\Carbon::parse($exam->end_date)->toFormattedDateString() }}</td>
-                                <td><span class="badge {!! $exam->is_active ? 'badge-success' : 'badge-danger' !!}">{!! $exam->is_active ? 'open' : 'closed' !!}</span></td>
+                                <td>{{ @\Carbon\Carbon::parse($exam->start_date)->toFormattedDateString() }}</td>
+                                <td>{{ @\Carbon\Carbon::parse($exam->end_date)->toFormattedDateString() }}</td>
+                                <td><span class="badge {!! $exam->is_active ? 'badge-success' : 'badge-danger' !!}">{!! @$exam->is_active ? 'open' : 'closed' !!}</span></td>
                                 <td class="text-center">
                                     {{--<button
                                             data-exam="{{ json_encode($subject) }}"
@@ -119,9 +119,9 @@
                     @if(sizeof($subject_allocations))
                         @foreach($subject_allocations as $subject_allocation)
                             <tr>
-                                <td>{{ ucwords($subject_allocation->teacher->name) }}</td>
-                                <td>{{ ucwords($subject_allocation->student_class->name) }}</td>
-                                <td>{{ ucwords($subject_allocation->subject->label) }}</td>
+                                <td>{{ @ucwords($subject_allocation->teacher->name) }}</td>
+                                <td>{{ @ucwords($subject_allocation->student_class->name) }}</td>
+                                <td>{{ @ucwords($subject_allocation->subject->label) }}</td>
                                 <td class="text-center">
                                     <div class="dropdown">
                                         <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Actions
@@ -157,8 +157,8 @@
                     @if(sizeof($class_teachers))
                         @foreach($class_teachers as $class_teacher)
                             <tr>
-                                <td>{{ ucwords($class_teacher->studentClass->name) }}</td>
-                                <td>{{ ucwords($class_teacher->teacher->name) }}</td>
+                                <td>{{ @ucwords($class_teacher->studentClass->name) }}</td>
+                                <td>{{ @ucwords($class_teacher->teacher->name) }}</td>
                                 <td class="text-center">
                                     <div class="dropdown">
                                         <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Actions

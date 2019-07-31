@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\DB\Students\StudentParent;
+use App\User;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,5 +27,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \Illuminate\Support\Facades\Schema::defaultStringLength(191);
+
+        Relation::morphMap([
+            'user' => User::class,
+            'parent' => StudentParent::class,
+        ]);
     }
 }

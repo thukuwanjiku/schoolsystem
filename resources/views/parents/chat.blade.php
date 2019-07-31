@@ -1,4 +1,4 @@
-@extends('layouts.admin_layout')
+@extends('layouts.parents_layout')
 
 @section('title', 'Parents Chat')
 
@@ -577,74 +577,9 @@
 
 
     <div class="container app">
-        <div class="app-one" style="width:95%;height:81vh;">
-            <div class="col-sm-3 side">
-                <div class="side-one">
-                    <div class="row heading">
-                        <div class="col-sm-3 col-xs-3 heading-avatar">
-                            <div class="heading-avatar-icon">
-                                <img style="visibility: hidden;" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-                            </div>
-                        </div>
+        <div class="app-one" style="width:95%;height:81vh;display: flex;justify-content: center;">
 
-                    </div>
-
-
-                    <div class="row sideBar">
-                        @if(sizeof($chats))
-                            @foreach($chats as $chat)
-                                <div class="row sideBar-body" data-chat="{{ json_encode($chat) }}">
-                                    <div class="col-sm-3 col-xs-3 sideBar-avatar">
-                                        <div class="avatar-icon">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-9 col-xs-9 sideBar-main">
-                                        <div class="row">
-                                            <div class="col-sm-8 col-xs-8 sideBar-name">
-                                                <span class="name-meta">{!! $chat['parent_name'] !!}</span>
-                                            </div>
-                                            <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                                                <span class="time-meta pull-right">{!! $chat['date'] !!}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @else
-                            <div class="row sideBar-body">
-                                <div class="col-sm-9 col-xs-9 sideBar-main">
-                                    <p class="text-center">No conversations</p>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="side-two">
-                    <div class="row newMessage-heading">
-                        <div class="row newMessage-main">
-                            <div class="col-sm-2 col-xs-2 newMessage-back">
-                                <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                            </div>
-                            <div class="col-sm-10 col-xs-10 newMessage-title">
-                                New Chat
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row composeBox">
-                        <div class="col-sm-12 composeBox-inner">
-                            <div class="form-group has-feedback">
-                                <input id="composeText" type="text" class="form-control" name="searchText" placeholder="Search People">
-                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-9 conversation active-chat hidden">
+            <div class="col-sm-9 conversation active-chat">
                 <div class="row heading">
                     <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
                         <div class="heading-avatar-icon">
@@ -652,8 +587,7 @@
                         </div>
                     </div>
                     <div class="col-sm-8 col-xs-7 heading-name">
-                        <a class="heading-name-meta" href="javascript:void(0)" id="chat-header"></a>
-                        <span class="heading-online">Online</span>
+                        <a class="heading-name-meta" href="javascript:void(0)" id="chat-header">Chat School Admin</a>
                     </div>
                     <div class="col-sm-1 col-xs-1  heading-dot pull-right">
                         <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
@@ -661,13 +595,24 @@
                 </div>
 
                 <div class="row message" id="conversation" style="max-height:100%;overflow-y: scroll;">
-
+                    @foreach($messages as $message)
+                        <div class="row message-body m-b-10">
+                            <div class="col-sm-12 {{ $message['msg_class'] }}">
+                                <div class="{{ $message['container_class'] }}">
+                                    <div class="message-text">
+                                        {!! $message['message'] !!}
+                                    </div>
+                                    <span class="message-time pull-right">{!! $message['time'] !!}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    @endforeach
                 </div>
 
-                <form action="{{ route('admin_send_chat_msg') }}" method="POST" id="sendMsg">
+                <form action="{{ route('parents_send_msg') }}" method="POST" id="sendMsg">
                     @csrf
-                    <input type="hidden" name="chat_id" id="chat-id">
-                    <input type="hidden" name="recipient_id" id="recipient-id">
+                    <input type="hidden" name="chat_id" value="{!! @$messages[0]['chat_id'] !!}">
                     <div class="row reply">
                         <div class="col-sm-1 col-xs-1 reply-emojis">
                             <i class="fa fa-smile-o fa-2x"></i>
@@ -684,55 +629,6 @@
                     </div>
                 </form>
             </div>
-
-            <div class="col-sm-9 new-chat conversation">
-                <div class="col-sm-12" style="height: 100%;display: flex;justify-content: center; align-items: center;">
-                    <h4><a href="javascript:void(0)" data-toggle="modal" data-target="#newChatModal"><i class="fa fa-envelope-open"></i>&nbsp;   New Chat</a></h4>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- New chat Modal -->
-    <div id="newChatModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">New Chat</h4>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('admin_send_msg') }}" method="POST" class="form-horizontal form-bordered" enctype="multipart/form-data"
-                    >
-
-                        @csrf
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Select Parent</label>
-                            <div class="col-sm-6">
-                                <select class="form-control" name="parent_id">
-                                    <option disabled selected>~select parent~</option>
-                                    @foreach($parents as $parent)
-                                        <option value="{!! $parent->id !!}">{!! ucwords($parent->name) !!}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Message</label>
-                            <div class="col-sm-8">
-                                <textarea name="message" placeholder="Message" id="" rows="5" class="form-control"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button class="btn btn-success" type="submit">Send Message</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
         </div>
     </div>
 
@@ -741,38 +637,6 @@
 
     <script>
         $(document).ready(function () {
-
-            $(".sideBar-body").on('click', function(){
-                $(".new-chat").addClass('hidden');
-                $(".active-chat").removeClass('hidden');
-
-                var chat = $(this).data('chat');
-                $("#chat-id").val(chat.chat_id);
-                $("#recipient-id").val(chat.parent_id);
-                $("#chat-header").html(chat.parent_name);
-
-                var msgsHtml = ``;
-                chat.messages.forEach(message => {
-                    msgsHtml += `
-
-                    <div class="row message-body">
-                        <div class="col-sm-12 ${message.msg_class}">
-                            <div class="${message.container_class}">
-                                <div class="message-text">
-                                    ${message.message}
-                                </div>
-                                <span class="message-time pull-right">${message.time}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    `;
-                });
-
-                $("#conversation").empty().html(msgsHtml);
-
-            });
-
             $(".send-btn").on('click', function(){
                 $("#sendMsg").trigger('submit');
             });

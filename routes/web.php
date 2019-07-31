@@ -97,6 +97,8 @@ Route::group([
         'namespace' => 'Chat'
     ], function(){
         Route::get('/', 'AdminChatController@index')->name('admin_chat');
+        Route::post('/send-msg', 'AdminChatController@sendMsg')->name('admin_send_msg');
+        Route::post('/send-chat-msg', 'AdminChatController@sendChatMsg')->name('admin_send_chat_msg');
     });
 
 });
@@ -139,5 +141,31 @@ Route::group([
     Route::get('/', 'DisciplineController@index')->name('discipline');
     Route::get('/new-indiscipline-case', 'DisciplineController@newIndisciplineCase')->name('new_discipline_case');
     Route::post('/new-indiscipline-case', 'DisciplineController@saveDisciplineCase')->name('save_new_discipline_case');
+
+});
+
+Route::group([
+    'prefix' => "parents",
+    'namespace' => "Parents"
+], function(){
+
+    Route::get('/login', 'ParentsLoginController@showLogin')->name('parents_login');
+    Route::post('/login', 'ParentsLoginController@login')->name('parents_login_post');
+
+    Route::group([
+        'middleware' => ['parents_access']
+    ], function(){
+
+        Route::post('/logout', 'ParentsLoginController@logout')->name('parents_logout');
+        Route::get('/dashboard', 'ParentsDashboardController@index')->name('parents_dashboard');
+
+
+        Route::get('/performance', 'ParentsPerformanceController@index')->name('parents_performance');
+        Route::get('/student-welfare', 'StudentWelfareController@index')->name('parents_student_welfare');
+
+        Route::get('chat', 'ParentsChatController@index')->name('parents_chat');
+        Route::post('send-msg', 'ParentsChatController@sendMsg')->name('parents_send_msg');
+
+    });
 
 });
