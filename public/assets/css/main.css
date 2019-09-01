@@ -7,6 +7,11 @@
 .skin-blue .sidebar-menu>li>a.active {
     background: #067b7b !important;
 }
+.skin-blue .main-header .logo {
+    background-color: #32654d;
+    color: #fff;
+    border-bottom: 0 solid transparent;
+}
 body {
     background: #9daab7 !important;
 }
