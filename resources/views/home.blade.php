@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Admin - Home')
+@section('title', 'School System - Home')
 
 @section('content')
 <div class="container">
