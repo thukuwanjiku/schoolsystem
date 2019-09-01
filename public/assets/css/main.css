@@ -1,3 +1,12 @@
+.sidebar, .sidebar-bg {
+    background: #111417 !important;
+}
+.skin-blue .main-header .navbar {
+    background-color: #0aa2a2 !important;
+}
+.skin-blue .sidebar-menu>li>a.active {
+    background: #067b7b !important;
+}
 fieldset
 {
     border: 1px solid #ddd !important;
@@ -90,8 +99,8 @@ input:checked + .slider:before {
 .hidden{
     display:none;
 }
-.nav-tabs{
-    background: #2c5163;
+.nav-tabs {
+    background: #067b7b;
 }
 .nav>li>a {
     color: white;
