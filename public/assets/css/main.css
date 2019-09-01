@@ -2,7 +2,7 @@
     background: #32654d !important;
 }
 .skin-blue .main-header .navbar {
-    background-color: #0aa2a2 !important;
+    background-color: #485656 !important;
 }
 .skin-blue .sidebar-menu>li>a.active {
     background: #067b7b !important;
@@ -108,7 +108,7 @@ input:checked + .slider:before {
     display:none;
 }
 .nav-tabs {
-    background: #067b7b;
+    background: #485656;
 }
 .nav>li>a {
     color: white;
