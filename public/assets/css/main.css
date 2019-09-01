@@ -7,6 +7,9 @@
 .skin-blue .sidebar-menu>li>a.active {
     background: #067b7b !important;
 }
+body {
+    background: #9daab7 !important;
+}
 fieldset
 {
     border: 1px solid #ddd !important;
